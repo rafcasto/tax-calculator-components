@@ -22,8 +22,12 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "rollup": "rollup -c --bundleConfigAsCjs"
   },
+  "main": "lib/index.js",
+  "module": "lib/index.esm.js",
+  "types": "lib/index.d.ts",
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -67,9 +71,13 @@
     "@storybook/react": "^6.5.12",
     "@storybook/testing-library": "^0.0.13",
     "babel-plugin-named-exports-order": "^0.0.2",
+    "node-sass": "^7.0.3",
     "prop-types": "^15.8.1",
     "rollup": "^3.2.3",
     "rollup-plugin-dts": "^5.0.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-typescript2": "^0.34.1",
     "webpack": "^5.74.0"
   }
 }
