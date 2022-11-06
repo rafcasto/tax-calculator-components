@@ -13,6 +13,25 @@ export default {
   } as ComponentMeta<typeof DefaultInputText>;
  
   // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof DefaultInputText> = (args) => <DefaultInputText  />;
+  const Template: ComponentStory<typeof DefaultInputText> = (args) => <DefaultInputText  {...args}/>;
  
-export const Primary = Template.bind({});
+  export const Standard = Template.bind({});
+  Standard.args = {
+    label:'Standard',
+    id:'Standard'
+  }
+   
+  export const Outline = Template.bind({});
+  Outline.args = {
+    label:'Outline',
+    id:'Outline',
+    variant: 'outlined'
+  }
+   
+  export const Filled = Template.bind({});
+  Filled.args = {
+    label:'Filled',
+    id:'Filled',
+    variant: 'filled'
+  }
+  
