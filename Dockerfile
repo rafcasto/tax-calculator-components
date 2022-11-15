@@ -3,6 +3,10 @@ FROM node:16.13.1-alpine
 # This is optional. Sets the level of logging that you see
 ENV NPM_CONFIG_LOGLEVEL warn
 
+RUN mkdir -p /usr/src/app
+
+COPY ./ /usr/src/app
+
 # Create app directory
 WORKDIR /usr/src/app
 
