@@ -21,7 +21,7 @@ pipeline {
             steps{
                 sh 'npm version minor --no-git-tag-version'
                 withCredentials([usernamePassword(credentialsId: 'GitCredentials', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-		    sh 'git config --global user.email "rafcasto@gmail.com"'
+		            sh 'git config --global user.email "rafcasto@gmail.com"'
                     sh 'git config --global user.name "rafcasto"'
                     sh('git add .')
                     sh('git commit -m "Jenkins"')
