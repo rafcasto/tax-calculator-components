@@ -20,7 +20,7 @@ pipeline {
                 sh 'git config --global user.name "rafcasto"'
                 sh 'export NEW_VERSION=$(npm version minor --no-git-tag-version)'
                 withCredentials([usernamePassword(credentialsId: 'GitCredentials', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-                    sh("git tag -a some_tag -m 'Jenkins-$NEW_VERSION'")
+                    sh("git tag -a $NEW_VERSION -m 'Jenkins-$NEW_VERSION'")
                     sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/rafcasto/tax-calculator-components.git --tags')
                 }
                
