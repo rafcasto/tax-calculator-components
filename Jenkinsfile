@@ -1,6 +1,9 @@
 pipeline {
     agent {
-        docker { image 'rafcasto/nodejs-build:latest' }
+        docker { 
+            image 'rafcasto/nodejs-build:latest' 
+            args '-e NPM_TOKEN=$NPM_SECRET'
+        }
     }
     stages {
         stage('Build') {
@@ -16,17 +19,17 @@ pipeline {
         }
         stage('package'){
             steps{
-                sh 'git config --global user.email "rafcasto@gmail.com"'
-                sh 'git config --global user.name "rafcasto"'
-                sh 'export NEW_VERSION=$(npm version minor --no-git-tag-version)'
+                sh 'npm version minor --no-git-tag-version'
                 withCredentials([usernamePassword(credentialsId: 'GitCredentials', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-                    sh("git tag -a $NEW_VERSION -m 'Jenkins-$NEW_VERSION'")
+		    sh 'git config --global user.email "rafcasto@gmail.com"'
+                    sh 'git config --global user.name "rafcasto"'
+                    sh('git add .')
+                    sh('git commit -m "Jenkins"')
                     sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/rafcasto/tax-calculator-components.git --tags')
                 }
-               
                 sh 'npm run build'
                 sh 'npm run rollup'
-                sh 'npm run publish'
+                sh 'npm publish'
             }
         }
     }
