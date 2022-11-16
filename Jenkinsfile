@@ -16,6 +16,8 @@ pipeline {
         }
         stage('package'){
             steps{
+                sh 'git config --global user.email "rafcasto@gmail.com"'
+                sh 'git config --global user.name "rafcasto"'
                 sh 'export NEW_VERSION=$(npm version minor)'
                 withCredentials([usernamePassword(credentialsId: 'GitCredentials', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                     sh("git tag -a some_tag -m 'Jenkins'")
