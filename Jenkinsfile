@@ -26,6 +26,7 @@ pipeline {
                     sh 'git config --global user.name "rafcasto"'
                     sh 'git config --local credential.helper "!f() { echo username=\\$GIT_USERNAME; echo password=\\$GIT_PASSWORD; }; f"' 
                     sh 'git checkout main'
+                    sh 'git pull'
                     sh 'npm version minor  --no-git-tag-version'
                     sh('git push')
                 }
