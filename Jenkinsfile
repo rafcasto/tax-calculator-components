@@ -19,13 +19,15 @@ pipeline {
         }
         stage('package'){
             steps{
-                sh 'npm version minor --no-git-tag-version'
+            
                 withCredentials([usernamePassword(credentialsId: 'GitCredentials', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+                    
 		            sh 'git config --global user.email "rafcasto@gmail.com"'
                     sh 'git config --global user.name "rafcasto"'
-                    sh('git add .')
-                    sh('git commit -m "Jenkins"')
-                    sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/rafcasto/tax-calculator-components.git --tags')
+                    sh 'git config --local credential.helper "!f() { echo username=\\$GIT_USERNAME; echo password=\\$GIT_PASSWORD; }; f"' 
+                    sh 'git checkout main'
+                    sh 'npm version minor  --no-git-tag-version'
+                    sh('git push')
                 }
                 sh 'npm run build'
                 sh 'npm run rollup'
